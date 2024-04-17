@@ -56,7 +56,10 @@
                                                     <p class="card-title">Upload Date: {{ i.upload_date }}</p>
                                                     <span class="text-success small pt-1 fw-bold"></span>
                                                     <a href="{{ i.file.url }}" class="btn btn-outline">Views File</a>
-                                                    <a href="{{ i.file.url }}" download="{{ i.file }}" class="btn btn-outline-primary">Download File</a>
+<a href="{{ i.file.url }}" download="{{ i.file }}" class="btn btn-outline-primary">Download File</a>
+
+                                                    {% comment %} <a href="{{ i.file.url }}" class="btn btn-outline">Views File</a>
+                                                    <a href="{{ i.file.url }}" download="{{ i.file }}" class="btn btn-outline-primary">Download File</a> {% endcomment %}
                                                     <span class="text-muted small pt-2 ps-1"></span>
 
                                                 </div>
