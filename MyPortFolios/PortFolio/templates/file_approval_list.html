@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Approval List</title>
+</head>
+<body>
+    <h1>File Approval List</h1>
+    <ul>
+        {% for approval in approvals %}
+        <li>
+            <strong>{{ approval.file.filetitle }}</strong> - Uploaded by: {{ approval.student.user.username }} - 
+            Approved: {% if approval.approved %}Yes{% else %}No{% endif %} - 
+            <form action="{% url 'approve_file' approval.id %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Approve</button>
+            </form>
+            <form action="{% url 'decline_file' approval.id %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Decline</button>
+            </form>
+        </li>
+        {% empty %}
+        <li>No files awaiting approval.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

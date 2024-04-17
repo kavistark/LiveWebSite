@@ -1,0 +1,92 @@
+{% extends 'staff/base.html' %}
+{% load static %}
+{% block title %}Staff Admin{% endblock title %}
+
+{% block main-content %} 
+
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Studemt Details</h1>
+    </div><!-- End Page Title -->
+<section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                {% for folder in student.user.folder_set.all %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ folder.foldername }}</h5>
+
+                        <!-- Table with stripped rows -->
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">File Name</th>
+                                        <th scope="col">Upload Date</th>
+                                        <th scope="col">Download</th>
+                                        <th scope="col">Approve/Decline </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for file in folder.file_set.all %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ file.filetitle }}</td>
+                                        <td>{{ file.upload_date}}</td>
+                                        <td><a href="{{ file.file.url }}" class="btn btn-primary">Download</a>
+                                        <td>
+                                        <div class="row">
+                                            <div class="col">
+                                                <form action="{% url 'approve_or_decline_file' file.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" name="approve" class="btn btn-success">Approve</button>
+                                                </form>
+                                            </div>
+                                            <div class="col">
+                                                <form action="{% url 'approve_or_decline_file' file.id %}" method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit" name="decline" class="btn btn-danger">Decline</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        </td>     
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="section contact">   
+      <div class='row'>   
+        <div class="col-xl-5">
+          <div class="card p-4">
+            <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+            <p>Year: {{ student.year }}</p>
+            <p>Department: {{ student.degree_department }}</p>
+            <p>Date of Birth: {{ student.date_of_birth }}</p>
+            <p>Sex: {{ student.sex }}</p>
+            <p>LinkedIn: <a href="{{ student.linkedin_link }}">{{ student.linkedin_link }}</a></p>
+            <p>Github: <a href="{{ student.github_link }}">{{ student.github_link }}</a></p>
+            <p>Website: <a href="{{ student.website_link }}">{{ student.website_link }}</a></p>
+            <p>Phone: {{ student.phone }}</p>
+            <p>Email: {{ student.email }}</p>
+            <p>About: {{ student.about }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+{% endblock main-content %}
+                
+  

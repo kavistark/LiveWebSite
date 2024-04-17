@@ -1,0 +1,20 @@
+<!-- student/declined_files.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declined Files</title>
+</head>
+<body>
+    <h1>Declined Files</h1>
+    <ul>
+        {% for approval in declined_files %}
+        <li>{{ approval.file.filetitle }}</li>
+        {% empty %}
+        <li>No declined files.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,80 @@
+{% extends 'staff/base.html' %}
+{% load static %}
+{% block title %}Staff Admin{% endblock title %}
+
+{% block main-content %} 
+
+<main id="main" class="main">
+
+   <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Approved Files </h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Folder User</th>
+                        <th scope="col">Folder Name</th>
+                        <th scope="col">File Title</th>
+                        <th scope="col">File Upload Date</th>
+                        <th scope="col">Download</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if approved_files %}
+                    {% for file in approved_files %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ file.folder.folderuser.username }}</td>
+                        <td>{{ file.folder.foldername }}</td>
+                        <td>{{ file.filetitle }}</td>
+                        <td>{{ file.upload_date }}</td>
+                        <td><a href="{{ file.file.url }}" class="btn btn-primary">Download</a></td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                      <p>No approved files available.</p>
+                    {% endif %}
+                </tbody>
+            </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</main>
+
+{% endblock main-content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pagetitle">
+          <h1>Approved Files</h1>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        {% if approved_files %}
+          <ul class="list-group">
+            {% for file in approved_files %}
+              <li class="list-group-item">
+                <strong>Folder Name:</strong> {{ file.folder.foldername }}<br>
+                <strong>Folder User:</strong> {{ file.folder.folderuser.username }}<br>
+                <strong>File Title:</strong> {{ file.filetitle }} - <a href="{{ file.file.url }}">Download</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No approved files available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
